@@ -17,6 +17,47 @@ import java.io.Reader;
 public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraRepository {
 
     @Override
+    public void insert(Long numeroDocumento, Long idCarrera, Integer inscripcion, Integer graduacion, Integer antiguedad) {   //matricular un estudiante en una carrera
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            Estudiante estudiante = em.find(Estudiante.class, numeroDocumento);
+            if (estudiante == null) {
+                throw new IllegalArgumentException("Estudiante con DNI " + numeroDocumento + " no existe");
+            }
+            Carrera carrera = em.find(Carrera.class, idCarrera);
+            if (carrera == null) {
+                throw new IllegalArgumentException("Carrera con id " + idCarrera + " no existe");
+            }
+
+            EstudianteCarreraId pk = new EstudianteCarreraId(numeroDocumento, idCarrera);
+            EstudianteCarrera existente = em.find(EstudianteCarrera.class, pk);
+
+            if (existente == null) {
+                EstudianteCarrera ec = new EstudianteCarrera();
+                ec.setId(pk);
+                ec.setEstudiante(estudiante);
+                ec.setCarrera(carrera);
+                ec.setInscripcion(inscripcion);
+                ec.setGraduacion(graduacion);
+                ec.setAntiguedad(antiguedad);
+
+                em.persist(ec);
+            } else {
+                System.out.println("El estudiante ya estaba matriculado en esa carrera, no se modificó.");
+            }
+
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
     public void cargarDesdeCSV() {
         EntityManager em = JPAUtil.getEntityManager();
 

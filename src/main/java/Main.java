@@ -9,8 +9,8 @@ public class Main {
         EstudianteRepositoryImpl er = new EstudianteRepositoryImpl();
         EstudianteCarreraRepositoryImpl ecr = new EstudianteCarreraRepositoryImpl();
 
-        cr.cargarDesdeCSV();
-        er.cargarDesdeCSV();
-        ecr.cargarDesdeCSV();  // Debe ejecutarse al final porque depende de Estudiante y Carrera
+       cr.cargarDesdeCSV();
+       er.cargarDesdeCSV();
+       ecr.cargarDesdeCSV();  // Debe ejecutarse al final porque depende de Estudiante y Carrera
     }
 }
