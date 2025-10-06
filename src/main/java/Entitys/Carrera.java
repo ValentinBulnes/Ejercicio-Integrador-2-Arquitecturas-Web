@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Carrera {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCarrera;
+    private Long idCarrera;
 
     @Column
     private String carrera;
@@ -26,7 +26,7 @@ public class Carrera {
         this.duracion = duracion;
     }
 
-    public Integer getIdCarrera() {
+    public Long getIdCarrera() {
         return idCarrera;
     }
 

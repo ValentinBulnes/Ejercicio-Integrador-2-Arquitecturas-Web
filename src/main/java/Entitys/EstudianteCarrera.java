@@ -36,7 +36,7 @@ public class EstudianteCarrera {
         this.fechaInscripcion = fechaInscripcion;
         this.antiguedad = antiguedad;
         this.graduado = graduado;
-        this.id = new EstudianteCarreraId(estudiante.getId(), carrera.getId());
+        this.id = new EstudianteCarreraId(estudiante.getId(), carrera.getIdCarrera());
     }
 
     // Getters y Setters
@@ -87,5 +87,6 @@ public class EstudianteCarrera {
     public void setGraduado(Boolean graduado) {
         this.graduado = graduado;
     }
+
 
 }
