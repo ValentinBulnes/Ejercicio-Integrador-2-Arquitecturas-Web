@@ -6,17 +6,17 @@ import java.time.LocalDate;
 
 @Entity
 public class EstudianteCarrera {
-    @EmbeddedId
+    @EmbeddedId /// indica que el ID de esta entidad está compuesto por varios campos
     private EstudianteCarreraId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("estudianteId")
-    @JoinColumn
+    @MapsId("estudianteId") /// le dice a JPA que use las claves primarias de Estudiante y Carrera para completar el EmbeddedId
+    @JoinColumn(name = "estudiante_id")
     private Estudiante estudiante;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("carreraId")
-    @JoinColumn
+    @JoinColumn(name = "carrera_id")
     private Carrera carrera;
 
     @Column
