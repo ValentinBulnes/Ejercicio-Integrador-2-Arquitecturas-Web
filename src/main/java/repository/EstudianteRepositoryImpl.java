@@ -1,0 +1,74 @@
+package repository;
+
+import factory.JPAUtil;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import modelo.Estudiante;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
+import java.io.*;
+import java.util.List;
+
+public class EstudianteRepositoryImpl implements EstudianteRepository{
+
+    @Override
+    public void cargarDesdeCSV() {
+        EntityManager em = JPAUtil.getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Long count = em.createQuery("SELECT COUNT(e) FROM Estudiante e", Long.class).getSingleResult();
+            if (count > 0) {
+                System.out.println("La tabla Estudiante ya contiene datos. No se cargará el CSV.");
+                em.getTransaction().commit();
+                return;
+            }
+            em.getTransaction().commit();
+
+            Reader in = new InputStreamReader(
+                    new FileInputStream("src/main/resources/estudiantes.csv"),
+                    java.nio.charset.StandardCharsets.ISO_8859_1
+            );
+            CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(in);
+
+            em.getTransaction().begin();
+
+            for (CSVRecord row : parser) {
+                Long dni = Long.parseLong(row.get("DNI"));
+                String nombre = row.get("nombre");
+                String apellido = row.get("apellido");
+                Integer edad = Integer.parseInt(row.get("edad"));
+                String genero = row.get("genero");
+                String ciudad = row.get("ciudad");
+                Integer lu = Integer.parseInt(row.get("LU"));
+
+                Estudiante e = new Estudiante();
+                e.setNumeroDocumento(dni);          // PK
+                e.setNombre(nombre);
+                e.setApellido(apellido);
+                e.setEdad(edad);
+                e.setGenero(genero);
+                e.setCiudadResidencia(ciudad);
+                e.setLibretaUniversitaria(lu);
+
+                em.persist(e);
+            }
+
+            em.getTransaction().commit();
+            parser.close();
+            in.close();
+
+            System.out.println("Estudiantes cargados exitosamente desde CSV.");
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+
+}

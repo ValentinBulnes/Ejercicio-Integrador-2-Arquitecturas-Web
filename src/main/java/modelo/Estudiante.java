@@ -1,49 +1,50 @@
-package Entitys;
+package modelo;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 @Entity
+@Table(name = "estudiante")
 public class Estudiante {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "numero_documento", nullable = false)
+    private Long numeroDocumento;
 
     @Column(nullable = false)
     private String nombre;
+
     @Column(nullable = false)
     private String apellido;
+
     @Column(nullable = false)
-    private String dni;
+    private Integer edad;
+
     @Column(nullable = false)
     private String genero;
-
-    @Column(name = "numero_documento", nullable = false, unique = true)
-    private String numeroDocumento;
 
     @Column(name = "ciudad_residencia")
     private String ciudadResidencia;
 
     @Column(name = "libreta_universitaria", nullable = false, unique = true)
-    private String libretaUniversitaria;
+    private Integer libretaUniversitaria;
 
     public Estudiante() {}
 
-    public Estudiante(String nombre, String apellido, String dni, String genero, String numeroDocumento, String ciudadResidencia, String libretaUniversitaria, String ciudad) {
+    public Estudiante(String nombre, String apellido, String genero, Long numeroDocumento, String ciudadResidencia, Integer libretaUniversitaria, String ciudad) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.dni = dni;
         this.genero = genero;
         this.numeroDocumento = numeroDocumento;
         this.ciudadResidencia = ciudadResidencia;
         this.libretaUniversitaria = libretaUniversitaria;
     }
 
-    public Long getId() {
-        return id;
+    public Long getNumeroDocumentoId() {
+        return numeroDocumento;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setNumeroDocumento(Long numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 
     public String getNombre() {
@@ -62,12 +63,12 @@ public class Estudiante {
         this.apellido = apellido;
     }
 
-    public String getDni() {
-        return dni;
+    public Integer getEdad() {
+        return edad;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setEdad(Integer edad) {
+        this.edad = edad;
     }
 
     public String getGenero() {
@@ -78,14 +79,6 @@ public class Estudiante {
         this.genero = genero;
     }
 
-    public String getNumeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
-    }
-
     public String getCiudadResidencia() {
         return ciudadResidencia;
     }
@@ -94,11 +87,20 @@ public class Estudiante {
         this.ciudadResidencia = ciudadResidencia;
     }
 
-    public String getLibretaUniversitaria() {
+    public Integer getLibretaUniversitaria() {
         return libretaUniversitaria;
     }
 
-    public void setLibretaUniversitaria(String libretaUniversitaria) {
+    public void setLibretaUniversitaria(Integer libretaUniversitaria) {
         this.libretaUniversitaria = libretaUniversitaria;
+    }
+
+    public Long getId() {
+        return numeroDocumento;
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" + "numeroDocumento=" + numeroDocumento + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", genero=" + genero + ", ciudadResidencia=" + ciudadResidencia + ", libretaUniversitaria=" + libretaUniversitaria + '}';
     }
 }

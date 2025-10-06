@@ -8,11 +8,9 @@
     <persistence-unit name="EjercicioIntegrador2" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <!-- Definición de las clases a mapear por JPA
         <class>modelo.Estudiante</class>
         <class>modelo.Carrera</class>
-         -->
-
+        <class>modelo.EstudianteCarrera</class>
 
         <properties>
             <!-- Database connection -->

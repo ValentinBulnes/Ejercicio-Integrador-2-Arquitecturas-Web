@@ -1,10 +1,9 @@
-package Entitys;
+package modelo;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-
 @Entity
+@Table(name = "carrera")
 public class Carrera {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +25,10 @@ public class Carrera {
         this.duracion = duracion;
     }
 
+    public void setIdCarrera(Long idCarrera) {
+        this.idCarrera = idCarrera;
+    }
+
     public Long getIdCarrera() {
         return idCarrera;
     }
@@ -42,7 +45,7 @@ public class Carrera {
         return duracion;
     }
 
-    public void setDuracion(int duracion) {
+    public void setDuracion(Integer duracion) {
         this.duracion = duracion;
     }
 }

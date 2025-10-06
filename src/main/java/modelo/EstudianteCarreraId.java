@@ -1,9 +1,10 @@
-package Entitys;
+package modelo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable /// le dice a JPA que esta clase no es una entidad, sino una estructura que se puede incrustar dentro de otra entidad (la que usará @EmbeddedId)
 public class EstudianteCarreraId implements Serializable { /// - implements Serializable - es obligatorio, porque JPA necesita poder serializar (guardar/cargar) los IDs compuestos.
@@ -39,5 +40,26 @@ public class EstudianteCarreraId implements Serializable { /// - implements Seri
         this.carreraId = carreraId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EstudianteCarreraId)) return false;
+        EstudianteCarreraId that = (EstudianteCarreraId) o;
+        return Objects.equals(estudianteId, that.estudianteId)
+                && Objects.equals(carreraId, that.carreraId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(estudianteId, carreraId);
+    }
+
+    @Override
+    public String toString() {
+        return "EstudianteCarreraId{" +
+                "estudianteId=" + estudianteId +
+                ", carreraId=" + carreraId +
+                '}';
+    }
 
 }

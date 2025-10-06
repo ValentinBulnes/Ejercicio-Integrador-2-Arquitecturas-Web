@@ -1,16 +1,15 @@
-package Entitys;
+package modelo;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
 @Entity
+@Table(name = "estudianteCarrera")
 public class EstudianteCarrera {
-    @EmbeddedId /// indica que el ID de esta entidad está compuesto por varios campos
+    @EmbeddedId
     private EstudianteCarreraId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("estudianteId") /// le dice a JPA que use las claves primarias de Estudiante y Carrera para completar el EmbeddedId
+    @MapsId("estudianteId")
     @JoinColumn(name = "estudiante_id")
     private Estudiante estudiante;
 
@@ -20,22 +19,22 @@ public class EstudianteCarrera {
     private Carrera carrera;
 
     @Column
-    private LocalDate fechaInscripcion;
+    private Integer inscripcion;
+
+    @Column
+    private Integer graduacion;
 
     @Column
     private Integer antiguedad;
 
-    @Column
-    private Boolean graduado;
-
     public EstudianteCarrera() {}
 
-    public EstudianteCarrera(Estudiante estudiante, Carrera carrera, LocalDate fechaInscripcion, int antiguedad) {
+    public EstudianteCarrera(Estudiante estudiante, Carrera carrera, Integer inscripcion, Integer graduacion, Integer antiguedad) {
         this.estudiante = estudiante;
         this.carrera = carrera;
-        this.fechaInscripcion = fechaInscripcion;
+        this.inscripcion = inscripcion;
+        this.graduacion = graduacion;
         this.antiguedad = antiguedad;
-        this.graduado = graduado;
         this.id = new EstudianteCarreraId(estudiante.getId(), carrera.getIdCarrera());
     }
 
@@ -64,12 +63,20 @@ public class EstudianteCarrera {
         this.carrera = carrera;
     }
 
-    public LocalDate getFechaInscripcion() {
-        return fechaInscripcion;
+    public Integer getInscripcion() {
+        return inscripcion;
     }
 
-    public void setFechaInscripcion(LocalDate fechaInscripcion) {
-        this.fechaInscripcion = fechaInscripcion;
+    public void setInscripcion(Integer inscripcion) {
+        this.inscripcion = inscripcion;
+    }
+
+    public Integer getGraduacion() {
+        return graduacion;
+    }
+
+    public void setGraduacion(Integer graduacion) {
+        this.graduacion = graduacion;
     }
 
     public Integer getAntiguedad() {
@@ -79,14 +86,4 @@ public class EstudianteCarrera {
     public void setAntiguedad(Integer antiguedad) {
         this.antiguedad = antiguedad;
     }
-
-    public Boolean getGraduado() {
-        return graduado;
-    }
-
-    public void setGraduado(Boolean graduado) {
-        this.graduado = graduado;
-    }
-
-
 }
