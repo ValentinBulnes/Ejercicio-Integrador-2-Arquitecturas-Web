@@ -1,3 +1,4 @@
+import modelo.Estudiante;
 import repository.CarreraRepositoryImpl;
 import repository.EstudianteCarreraRepositoryImpl;
 import repository.EstudianteRepositoryImpl;

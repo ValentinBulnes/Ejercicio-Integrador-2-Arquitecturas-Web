@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface EstudianteRepository {
     void cargarDesdeCSV();
+    void insert( Estudiante estudiante);
 }

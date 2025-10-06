@@ -14,6 +14,24 @@ import java.util.List;
 public class EstudianteRepositoryImpl implements EstudianteRepository{
 
     @Override
+    public void insert(Estudiante estudiante) {   //dar de alta un estudiante
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(estudiante);
+            em.getTransaction().commit();
+            System.out.println("Estudiante dado de alta correctamente: " + estudiante);
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
     public void cargarDesdeCSV() {
         EntityManager em = JPAUtil.getEntityManager();
 
