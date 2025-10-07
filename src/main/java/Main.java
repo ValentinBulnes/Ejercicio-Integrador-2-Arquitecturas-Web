@@ -31,5 +31,8 @@ public class Main {
         for (CarreraConInscriptosDTO carreraDTO : ecr.getCarrerasConCantidadInscriptos()) {  //buscar carreras con cantidad de inscriptos
             System.out.println(carreraDTO);
         }
+        for (Estudiante estudiante : ecr.obtenerEstudiantesPorCarreraYCiudad(1L, "Burlatskoye")) {  //buscar estudiantes por carrera y ciudad
+            System.out.println(estudiante);
+        }
     }
 }
