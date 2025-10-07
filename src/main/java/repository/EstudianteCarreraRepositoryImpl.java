@@ -152,4 +152,25 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
         }
     }
 
+    @Override
+    public List<Estudiante> obtenerEstudiantesPorCarreraYCiudad(Long idCarrera, String ciudad) {
+    EntityManager em = JPAUtil.getEntityManager();
+    try {
+        List<Estudiante> estudiantes = em.createQuery(
+            "SELECT ec.estudiante " +
+            "FROM EstudianteCarrera ec " +
+            "WHERE ec.carrera.idCarrera = :idCarrera " +
+            "AND ec.estudiante.ciudadResidencia = :ciudad " +
+            "ORDER BY ec.estudiante.apellido ASC", 
+            Estudiante.class
+        )
+        .setParameter("idCarrera", idCarrera)
+        .setParameter("ciudad", ciudad)
+        .getResultList();
+
+        return estudiantes;
+    } finally {
+        em.close();
+    }
+}
 }
