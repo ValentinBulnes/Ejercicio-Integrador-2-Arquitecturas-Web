@@ -1,5 +1,6 @@
 package repository;
 
+import dto.EstudianteDTO;
 import factory.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -12,6 +13,23 @@ import java.io.*;
 import java.util.List;
 
 public class EstudianteRepositoryImpl implements EstudianteRepository{
+
+    @Override
+    public EstudianteDTO buscarPorLibreta(Integer libreta) {
+        EntityManager em = JPAUtil.getEntityManager();
+        EstudianteDTO dto = em.createQuery(
+                        "SELECT new dto.EstudianteDTO(" +
+                                "  e.nombre, e.apellido, e.edad, e.ciudadResidencia, e.libretaUniversitaria" +
+                                ") " +
+                                "FROM Estudiante e " +
+                                "WHERE e.libretaUniversitaria = :libreta",
+                        EstudianteDTO.class)
+                .setParameter("libreta", libreta)
+                .getSingleResult();
+        em.close();
+        return dto;
+    }
+
 
     @Override
     public List<Estudiante> getEstudiantes() {   //recuperar todos los estudiantes ordenados por apellido

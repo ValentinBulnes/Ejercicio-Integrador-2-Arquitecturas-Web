@@ -1,3 +1,4 @@
+import dto.EstudianteDTO;
 import modelo.Estudiante;
 import repository.CarreraRepositoryImpl;
 import repository.EstudianteCarreraRepositoryImpl;
@@ -15,8 +16,11 @@ public class Main {
         er.cargarDesdeCSV();
         ecr.cargarDesdeCSV();  // Debe ejecutarse al final porque depende de Estudiante y Carrera
 
-        for(Estudiante estudiante : er.getEstudiantes()) {
+        for(Estudiante estudiante : er.getEstudiantes()) {   //buscar todos los estudiantes
             System.out.println(estudiante);
         }
+
+        System.out.println(er.buscarPorLibreta(34978));   //buscar estudiante por libreta
+
     }
 }
