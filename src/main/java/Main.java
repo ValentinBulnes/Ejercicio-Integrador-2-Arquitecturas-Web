@@ -22,5 +22,9 @@ public class Main {
 
         System.out.println(er.buscarPorLibreta(34978));   //buscar estudiante por libreta
 
+        for (EstudianteDTO estudianteDTO : er.buscarPorGenero("Female")) {  //buscar todos los estudiantes en base a su genero
+            System.out.println(estudianteDTO);
+        }
+
     }
 }

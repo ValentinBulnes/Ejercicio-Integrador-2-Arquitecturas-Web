@@ -10,4 +10,5 @@ public interface EstudianteRepository {
     void insert( Estudiante estudiante);
     List<Estudiante> getEstudiantes();
     EstudianteDTO buscarPorLibreta(Integer libreta);
+    List<EstudianteDTO> buscarPorGenero(String genero);
 }

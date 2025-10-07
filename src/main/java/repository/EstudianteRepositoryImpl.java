@@ -3,7 +3,6 @@ package repository;
 import dto.EstudianteDTO;
 import factory.JPAUtil;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import modelo.Estudiante;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -14,12 +13,27 @@ import java.util.List;
 
 public class EstudianteRepositoryImpl implements EstudianteRepository{
 
+    public List<EstudianteDTO> buscarPorGenero(String genero) {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<EstudianteDTO> estudiantes = em.createQuery(
+                        "SELECT new dto.EstudianteDTO(" +
+                                "  e.nombre, e.apellido, e.edad, e.genero, e.ciudadResidencia, e.libretaUniversitaria" +
+                                ") " +
+                                "FROM Estudiante e " +
+                                "WHERE e.genero = :genero ",
+                        EstudianteDTO.class)
+                .setParameter("genero", genero)
+                .getResultList();
+        em.close();
+        return estudiantes;
+    }
+
     @Override
     public EstudianteDTO buscarPorLibreta(Integer libreta) {
         EntityManager em = JPAUtil.getEntityManager();
         EstudianteDTO dto = em.createQuery(
                         "SELECT new dto.EstudianteDTO(" +
-                                "  e.nombre, e.apellido, e.edad, e.ciudadResidencia, e.libretaUniversitaria" +
+                                "  e.nombre, e.apellido, e.edad, e.genero, e.ciudadResidencia, e.libretaUniversitaria" +
                                 ") " +
                                 "FROM Estudiante e " +
                                 "WHERE e.libretaUniversitaria = :libreta",
