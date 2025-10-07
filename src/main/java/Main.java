@@ -1,3 +1,4 @@
+import dto.CarreraConInscriptosDTO;
 import dto.EstudianteDTO;
 import modelo.Estudiante;
 import repository.CarreraRepositoryImpl;
@@ -26,5 +27,8 @@ public class Main {
             System.out.println(estudianteDTO);
         }
 
+        for (CarreraConInscriptosDTO carreraDTO : ecr.getCarrerasConCantidadInscriptos()) {  //buscar carreras con cantidad de inscriptos
+            System.out.println(carreraDTO);
+        }
     }
 }
