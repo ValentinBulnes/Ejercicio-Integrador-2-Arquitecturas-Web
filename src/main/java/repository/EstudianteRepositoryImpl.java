@@ -14,6 +14,14 @@ import java.util.List;
 public class EstudianteRepositoryImpl implements EstudianteRepository{
 
     @Override
+    public List<Estudiante> getEstudiantes() {   //recuperar todos los estudiantes ordenados por apellido
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Estudiante> estudiantes = em.createQuery("SELECT e FROM Estudiante e ORDER BY e.apellido ASC", Estudiante.class).getResultList();
+        em.close();
+        return estudiantes;
+    }
+
+    @Override
     public void insert(Estudiante estudiante) {   //dar de alta un estudiante
         EntityManager em = JPAUtil.getEntityManager();
         try {
