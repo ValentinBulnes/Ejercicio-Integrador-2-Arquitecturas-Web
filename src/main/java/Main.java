@@ -37,16 +37,15 @@ public class Main {
         }
 
         //Generar reporte de carreras
-        List<CarreraReporteDTO> reporte =  cr.reporteCarreras();
+        List<CarreraReporteDTO> reporte = cr.reporteCarreras();
 
         String carreraActual = "";
-        for (CarreraReporteDTO registro : reporte) {
-            if (!registro.getCarrera().equalsIgnoreCase(carreraActual)) {
-                carreraActual = registro.getCarrera();
+        for (CarreraReporteDTO r : reporte) {
+            if (!r.getCarrera().equals(carreraActual)) {
+                carreraActual = r.getCarrera();
                 System.out.println(carreraActual+":");
             }
-            System.out.println(registro.getAnio() + " " + registro.getTipo() + ": " + registro.getCantidad());
+            System.out.println(r.getAnio() + " Inscriptos=" + r.getInscriptos() + ", Egresados=" + r.getEgresados());
         }
-
     }
 }

@@ -3,6 +3,7 @@ package repository;
 import dto.CarreraReporteDTO;
 import factory.JPAUtil;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import modelo.Carrera;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -18,57 +19,44 @@ import java.util.List;
 public class CarreraRepositoryImpl implements CarreraRepository{
 
     @Override
-    public List<CarreraReporteDTO> inscriptosPorCarreraYAnio() {
-        EntityManager em = JPAUtil.getEntityManager();
-        try {
-            return em.createQuery(
-                    "SELECT new dto.CarreraReporteDTO(" +
-                            "  c.carrera, ec.inscripcion, COUNT(ec), 'Inscriptos'" +
-                            ") " +
-                            "FROM EstudianteCarrera ec " +
-                            "JOIN ec.carrera c " +
-                            "WHERE ec.inscripcion IS NOT NULL " +
-                            "GROUP BY c.carrera, ec.inscripcion " +
-                            "ORDER BY c.carrera ASC, ec.inscripcion ASC",
-                    CarreraReporteDTO.class
-            ).getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
-    public List<CarreraReporteDTO> egresadosPorCarreraYAnio() {
-        EntityManager em = JPAUtil.getEntityManager();
-        try {
-            return em.createQuery(
-                    "SELECT new dto.CarreraReporteDTO(" +
-                            "  c.carrera, ec.graduacion, COUNT(ec), 'Egresados'" +
-                            ") " +
-                            "FROM EstudianteCarrera ec " +
-                            "JOIN ec.carrera c " +
-                            "WHERE ec.graduacion IS NOT NULL AND ec.graduacion <> 0 " +
-                            "GROUP BY c.carrera, ec.graduacion " +
-                            "ORDER BY c.carrera ASC, ec.graduacion ASC",
-                    CarreraReporteDTO.class
-            ).getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
     public List<CarreraReporteDTO> reporteCarreras() {
-        // Unifica inscriptos + egresados en una sola lista y la ordena
-        List<CarreraReporteDTO> combinado = new ArrayList<>();
-        combinado.addAll(inscriptosPorCarreraYAnio());
-        combinado.addAll(egresadosPorCarreraYAnio());
+        String sql =
+                "SELECT t.id_carrera, t.carrera, t.anio, " +
+                        "       SUM(t.inscriptos) AS inscriptos, SUM(t.egresados) AS egresados " +
+                        "FROM ( " +
+                        "  SELECT c.idCarrera AS id_carrera, c.carrera, ec.inscripcion AS anio, COUNT(*) AS inscriptos, 0 AS egresados " +
+                        "  FROM `estudianteCarrera` ec " +
+                        "  JOIN `carrera` c ON c.idCarrera = ec.`carrera_id` " +
+                        "  WHERE ec.inscripcion IS NOT NULL " +
+                        "  GROUP BY c.idCarrera, c.carrera, ec.inscripcion " +
+                        "  UNION ALL " +
+                        "  SELECT c.idCarrera AS id_carrera, c.carrera, ec.graduacion AS anio, 0 AS inscriptos, COUNT(*) AS egresados " +
+                        "  FROM `estudianteCarrera` ec " +
+                        "  JOIN `carrera` c ON c.idCarrera = ec.`carrera_id` " +
+                        "  WHERE ec.graduacion IS NOT NULL AND ec.graduacion <> 0 " +
+                        "  GROUP BY c.idCarrera, c.carrera, ec.graduacion " +
+                        ") t " +
+                        "GROUP BY t.id_carrera, t.carrera, t.anio " +
+                        "ORDER BY t.carrera ASC, t.anio ASC";
 
-        combinado.sort(
-                Comparator.comparing(CarreraReporteDTO::getCarrera, String.CASE_INSENSITIVE_ORDER)
-                        .thenComparing(CarreraReporteDTO::getAnio)
-        );
-        return combinado;
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            @SuppressWarnings("unchecked")
+            List<Object[]> rows = em.createNativeQuery(sql).getResultList();
+
+            List<CarreraReporteDTO> out = new ArrayList<>();
+            for (Object[] r : rows) {
+                Long idCarrera       = ((Number) r[0]).longValue();
+                String carrera       = (String) r[1];
+                Integer anio         = ((Number) r[2]).intValue();
+                Long inscriptos      = ((Number) r[3]).longValue();
+                Long egresados       = ((Number) r[4]).longValue();
+                out.add(new CarreraReporteDTO(idCarrera, carrera, anio, inscriptos, egresados));
+            }
+            return out;
+        } finally {
+            em.close();
+        }
     }
 
     @Override

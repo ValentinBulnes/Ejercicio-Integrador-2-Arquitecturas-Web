@@ -1,25 +1,29 @@
 package dto;
 
 public class CarreraReporteDTO {
+    private Long idCarrera;
     private String carrera;
     private Integer anio;
-    private Long cantidad;
-    private String tipo; // "Inscriptos" o "Egresados"
+    private Long inscriptos;
+    private Long egresados;
 
-    public CarreraReporteDTO(String carrera, Integer anio, Long cantidad, String tipo) {
+    public CarreraReporteDTO(Long idCarrera, String carrera,
+                             Integer anio, Long inscriptos, Long egresados) {
+        this.idCarrera = idCarrera;
         this.carrera = carrera;
         this.anio = anio;
-        this.cantidad = cantidad;
-        this.tipo = tipo;
+        this.inscriptos = inscriptos;
+        this.egresados = egresados;
     }
 
+    public Long getIdCarrera() { return idCarrera; }
     public String getCarrera() { return carrera; }
     public Integer getAnio() { return anio; }
-    public Long getCantidad() { return cantidad; }
-    public String getTipo() { return tipo; }
+    public Long getInscriptos() { return inscriptos; }
+    public Long getEgresados() { return egresados; }
 
     @Override
     public String toString() {
-        return carrera + " | " + anio + " | " + tipo + ": " + cantidad;
+        return carrera + " (" + anio + ") -> insc=" + inscriptos + ", egr=" + egresados;
     }
 }
