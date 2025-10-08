@@ -140,7 +140,7 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
     public List<CarreraConInscriptosDTO> getCarrerasConCantidadInscriptos() {
         EntityManager em = JPAUtil.getEntityManager();
         try {
-            String jpql = "SELECT new dto.CarreraConInscriptosDTO(c.idCarrera, c.carrera, COUNT(ec.id.estudianteId)) " +
+            String jpql = "SELECT new dto.CarreraConInscriptosDTO(c.idCarrera, c.carrera ,COUNT(ec.id.estudianteId)) " +
                     "FROM Carrera c " +
                     "JOIN EstudianteCarrera ec ON c.idCarrera = ec.id.carreraId " +
                     "GROUP BY c.idCarrera, c.carrera " +

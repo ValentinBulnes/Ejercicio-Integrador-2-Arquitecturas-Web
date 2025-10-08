@@ -1,6 +1,6 @@
 import dto.CarreraConInscriptosDTO;
+import dto.CarreraReporteDTO;
 import dto.EstudianteDTO;
-import modelo.Carrera;
 import modelo.Estudiante;
 import repository.CarreraRepositoryImpl;
 import repository.EstudianteCarreraRepositoryImpl;
@@ -35,5 +35,18 @@ public class Main {
         for (EstudianteDTO estudianteDTO : ecr.obtenerEstudiantesPorCarreraYCiudad(1L, "Rauch")) {  //buscar estudiantes por carrera y ciudad
             System.out.println(estudianteDTO);
         }
+
+        //Generar reporte de carreras
+        List<CarreraReporteDTO> reporte =  cr.reporteCarreras();
+
+        String carreraActual = "";
+        for (CarreraReporteDTO registro : reporte) {
+            if (!registro.getCarrera().equalsIgnoreCase(carreraActual)) {
+                carreraActual = registro.getCarrera();
+                System.out.println(carreraActual+":");
+            }
+            System.out.println(registro.getAnio() + " " + registro.getTipo() + ": " + registro.getCantidad());
+        }
+
     }
 }
