@@ -1,5 +1,6 @@
 package repository;
 
+import dto.EstudianteDTO;
 import factory.JPAUtil;
 import jakarta.persistence.EntityManager;
 import modelo.Carrera;
@@ -153,16 +154,19 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
     }
 
     @Override
-    public List<Estudiante> obtenerEstudiantesPorCarreraYCiudad(Long idCarrera, String ciudad) {
+    public List<EstudianteDTO> obtenerEstudiantesPorCarreraYCiudad(Long idCarrera, String ciudad) {
     EntityManager em = JPAUtil.getEntityManager();
     try {
-        List<Estudiante> estudiantes = em.createQuery(
-            "SELECT ec.estudiante " +
+        List<EstudianteDTO> estudiantes = em.createQuery(
+            "SELECT new dto.EstudianteDTO("  +
+                    " e.nombre, e.apellido, e.edad, e.genero, e.ciudadResidencia, e.libretaUniversitaria" +
+                    ") " +
             "FROM EstudianteCarrera ec " +
+            "JOIN ec.estudiante e " +
             "WHERE ec.carrera.idCarrera = :idCarrera " +
             "AND ec.estudiante.ciudadResidencia = :ciudad " +
             "ORDER BY ec.estudiante.apellido ASC", 
-            Estudiante.class
+            EstudianteDTO.class
         )
         .setParameter("idCarrera", idCarrera)
         .setParameter("ciudad", ciudad)
