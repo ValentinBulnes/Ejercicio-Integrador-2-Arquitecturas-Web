@@ -22,18 +22,23 @@ public class EstudianteDTO {
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getApellido() {
         return apellido;
     }
+
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
     public Integer getEdad() {
         return edad;
     }
+
     public void setEdad(Integer edad) {
         this.edad = edad;
     }
@@ -41,6 +46,7 @@ public class EstudianteDTO {
     public String getGenero() {
         return genero;
     }
+
     public void setGenero(String genero) {
         this.genero = genero;
     }
@@ -48,17 +54,22 @@ public class EstudianteDTO {
     public String getCiudadResidencia() {
         return ciudadResidencia;
     }
+
     public void setCiudadResidencia(String ciudadResidencia) {
         this.ciudadResidencia = ciudadResidencia;
     }
+
     public Integer getLibretaUniversitaria() {
         return libretaUniversitaria;
     }
+
     public void setLibretaUniversitaria(Integer libretaUniversitaria) {
         this.libretaUniversitaria = libretaUniversitaria;
     }
+
     @Override
     public String toString() {
         return "EstudianteDTO{" + "nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", genero="+ genero + ", ciudadResidencia=" + ciudadResidencia + ", libretaUniversitaria=" + libretaUniversitaria + '}';
     }
+
 }

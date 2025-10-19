@@ -1,7 +1,6 @@
 package org.example.tp3.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Data;
 
 @Entity

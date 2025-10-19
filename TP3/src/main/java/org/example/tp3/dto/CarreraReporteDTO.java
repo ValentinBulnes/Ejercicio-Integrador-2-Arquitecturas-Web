@@ -7,8 +7,7 @@ public class CarreraReporteDTO {
     private Long inscriptos;
     private Long egresados;
 
-    public CarreraReporteDTO(Long idCarrera, String carrera,
-                             Integer anio, Long inscriptos, Long egresados) {
+    public CarreraReporteDTO(Long idCarrera, String carrera, Integer anio, Long inscriptos, Long egresados) {
         this.idCarrera = idCarrera;
         this.carrera = carrera;
         this.anio = anio;
@@ -16,14 +15,29 @@ public class CarreraReporteDTO {
         this.egresados = egresados;
     }
 
-    public Long getIdCarrera() { return idCarrera; }
-    public String getCarrera() { return carrera; }
-    public Integer getAnio() { return anio; }
-    public Long getInscriptos() { return inscriptos; }
-    public Long getEgresados() { return egresados; }
+    public Long getIdCarrera() {
+        return idCarrera;
+
+    }
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public Integer getAnio() {
+        return anio;
+    }
+
+    public Long getInscriptos() {
+        return inscriptos;
+    }
+
+    public Long getEgresados() {
+        return egresados;
+    }
 
     @Override
     public String toString() {
         return carrera + " (" + anio + ") -> insc=" + inscriptos + ", egr=" + egresados;
     }
+
 }

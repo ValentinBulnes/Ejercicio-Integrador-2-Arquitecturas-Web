@@ -2,6 +2,9 @@ package org.example.tp3.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "carrera")
 public class Carrera {
@@ -15,8 +18,8 @@ public class Carrera {
     @Column
     private Integer duracion;
 
-    /// @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL)
-    /// private List<EstudianteCarrera> estudiantes = new ArrayList<>();
+     @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL)
+     private List<EstudianteCarrera> estudiantes = new ArrayList<>();
 
     public Carrera() {}
 
