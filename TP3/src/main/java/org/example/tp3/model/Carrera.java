@@ -1,4 +1,4 @@
-package modelo;
+package org.example.tp3.model;
 
 import jakarta.persistence.*;
 

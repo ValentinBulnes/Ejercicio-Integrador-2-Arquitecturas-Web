@@ -1,4 +1,4 @@
-package dto;
+package org.example.tp3.dto;
 
 public class CarreraConInscriptosDTO {
     private Long idCarrera;

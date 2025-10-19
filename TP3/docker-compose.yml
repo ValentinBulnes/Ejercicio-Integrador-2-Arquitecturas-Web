@@ -6,6 +6,6 @@ services:
     restart: unless-stopped
     environment:
       - "MYSQL_ALLOW_EMPTY_PASSWORD=yes"
-      - "MYSQL_DATABASE=Entregable2"
+      - "MYSQL_DATABASE=Entregable3"
     ports:
       - "3306:3306"

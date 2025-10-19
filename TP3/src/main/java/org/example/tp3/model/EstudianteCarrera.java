@@ -1,4 +1,4 @@
-package modelo;
+package org.example.tp3.model;
 
 import jakarta.persistence.*;
 
@@ -35,7 +35,7 @@ public class EstudianteCarrera {
         this.inscripcion = inscripcion;
         this.graduacion = graduacion;
         this.antiguedad = antiguedad;
-        this.id = new EstudianteCarreraId(estudiante.getId(), carrera.getIdCarrera());
+        this.id = new EstudianteCarreraId(estudiante.getNumeroDocumento(), carrera.getIdCarrera());
     }
 
     // Getters y Setters

@@ -4,6 +4,10 @@ import jakarta.transaction.Transactional;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.example.tp3.model.Carrera;
+import org.example.tp3.model.Estudiante;
+import org.example.tp3.model.EstudianteCarrera;
+import org.example.tp3.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
@@ -15,30 +19,30 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 public class CargaCSV implements CommandLineRunner {
-    @Autowired
-    private CarreraRepository carreraRepository;
+    /* @Autowired
+    private CarreraRepository carreraRepository; */
 
     @Autowired
     private EstudianteRepository estudianteRepository;
 
-    @Autowired
-    private EstudianteCarreraRepository estudianteCarreraRepository;
+    /* @Autowired
+    private EstudianteCarreraRepository estudianteCarreraRepository; */
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        if (carreraRepository.count() == 0) {
+       /*  if (carreraRepository.count() == 0) {
             cargarCarreras();
-        }
+        } */
         if (estudianteRepository.count() == 0) {
             cargarEstudiantes();
         }
-        if (estudianteCarreraRepository.count() == 0) {
+        /* if (estudianteCarreraRepository.count() == 0) {
             cargarEstudianteCarreras();
-        }
+        } */
     }
 
-    private void cargarCarreras() throws Exception {
+    /* private void cargarCarreras() throws Exception {
         try (Reader reader = new InputStreamReader(new ClassPathResource("csv/carreras.csv").getInputStream())) {
             CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(reader);
             for (CSVRecord row : parser) {
@@ -50,7 +54,7 @@ public class CargaCSV implements CommandLineRunner {
             }
             System.out.println("Carreras cargadas exitosamente desde CSV.");
         }
-    }
+    } */
 
     private void cargarEstudiantes() throws Exception {
         try (Reader reader = new InputStreamReader(new ClassPathResource("csv/estudiantes.csv").getInputStream(), StandardCharsets.UTF_8)) {
@@ -70,7 +74,7 @@ public class CargaCSV implements CommandLineRunner {
         }
     }
 
-    private void cargarEstudianteCarreras() throws Exception {
+    /* private void cargarEstudianteCarreras() throws Exception {
         try (Reader reader = new InputStreamReader(new ClassPathResource("csv/estudianteCarrera.csv").getInputStream())) {
             CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(reader);
             for (CSVRecord row : parser) {
@@ -95,6 +99,6 @@ public class CargaCSV implements CommandLineRunner {
             }
             System.out.println("Relaciones Estudiante-Carrera cargadas exitosamente desde CSV.");
         }
-    }
+    } */
 }
 
