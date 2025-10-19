@@ -5,9 +5,10 @@ import org.example.tp3.dto.EstudianteDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface EstudianteRepository extends JpaRepository<Estudiante, Long> {
 
     @Query("SELECT new org.example.tp3.dto.EstudianteDTO(" +

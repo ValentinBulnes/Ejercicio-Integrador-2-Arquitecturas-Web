@@ -6,7 +6,6 @@ import org.example.tp3.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.JsonSerializable.Base;
 
 import java.util.List;
 
@@ -17,6 +16,7 @@ public class EstudianteService {
     
     @Autowired
     private EstudianteRepository estudianteRepository;
+
     
     public List<Estudiante> obtenerTodosLosEstudiantes() {
         return estudianteRepository.getEstudiantes();
