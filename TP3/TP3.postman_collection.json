@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+		"name": "TP3 - API Estudiantes / Carreras",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Estudiantes",
+			"item": [
+				{
+					"name": "a) Dar de alta un estudiante",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numeroDocumento\": 99999999,\n    \"nombre\": \"Ana\",\n    \"apellido\": \"Gomez\",\n    \"edad\": 25,\n    \"genero\": \"Femenino\",\n    \"ciudadResidencia\": \"Rauch\",\n    \"libretaUniversitaria\": 123456\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/estudiantes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estudiantes"
+							]
+						},
+						"description": "Corresponde al requisito a)"
+					},
+					"response": []
+				},
+				{
+					"name": "c) Recuperar todos los estudiantes (ordenados)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/estudiantes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estudiantes"
+							]
+						},
+						"description": "Corresponde al requisito c)"
+					},
+					"response": []
+				},
+				{
+					"name": "d) Recuperar estudiante por libreta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/estudiantes/libreta/34978",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estudiantes",
+								"libreta",
+								"34978"
+							]
+						},
+						"description": "Corresponde al requisito d)"
+					},
+					"response": []
+				},
+				{
+					"name": "e) Recuperar estudiantes por género",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/estudiantes/genero/Male",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estudiantes",
+								"genero",
+								"Male"
+							]
+						},
+						"description": "Corresponde al requisito e)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carreras",
+			"item": [
+				{
+					"name": "Listar todas las carreras",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/carreras",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carreras"
+							]
+						},
+						"description": "Endpoint de CarreraController"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener carrera por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/carreras/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carreras",
+								"1"
+							]
+						},
+						"description": "Endpoint de CarreraController"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nueva carrera",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"carrera\": \"Licenciatura en Historia\",\n    \"duracion\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carreras",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carreras"
+							]
+						},
+						"description": "Endpoint de CarreraController"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar carrera",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"carrera\": \"TUDAI (Actualizada)\",\n    \"duracion\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carreras/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carreras",
+								"1"
+							]
+						},
+						"description": "Endpoint de CarreraController"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar carrera",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/carreras/15",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carreras",
+								"15"
+							]
+						},
+						"description": "Endpoint de CarreraController"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Matrículas y Reportes",
+			"item": [
+				{
+					"name": "b) Matricular un estudiante",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/estudiante-carrera/matricular?libretaUniversitaria=250018&idCarrera=1&inscripcion=2024&graduacion=0&antiguedad=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estudiante-carrera",
+								"matricular"
+							],
+							"query": [
+								{
+									"key": "libretaUniversitaria",
+									"value": "250018"
+								},
+								{
+									"key": "idCarrera",
+									"value": "1"
+								},
+								{
+									"key": "inscripcion",
+									"value": "2024"
+								},
+								{
+									"key": "graduacion",
+									"value": "0"
+								},
+								{
+									"key": "antiguedad",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Corresponde al requisito b)"
+					},
+					"response": []
+				},
+				{
+					"name": "f) Recuperar carreras con inscriptos (ordenadas)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/estudiante-carrera/carreras-con-inscriptos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estudiante-carrera",
+								"carreras-con-inscriptos"
+							]
+						},
+						"description": "Corresponde al requisito f)"
+					},
+					"response": []
+				},
+				{
+					"name": "g) Recuperar estudiantes por carrera y ciudad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/estudiante-carrera/estudiantes?idCarrera=1&ciudad=Rauch",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estudiante-carrera",
+								"estudiantes"
+							],
+							"query": [
+								{
+									"key": "idCarrera",
+									"value": "1"
+								},
+								{
+									"key": "ciudad",
+									"value": "Rauch"
+								}
+							]
+						},
+						"description": "Corresponde al requisito g)"
+					},
+					"response": []
+				},
+				{
+					"name": "h) Generar reporte de carreras (inscriptos y egresados)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/estudiante-carrera/reporte-carreras",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"estudiante-carrera",
+								"reporte-carreras"
+							]
+						},
+						"description": "Corresponde al requisito h)"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
