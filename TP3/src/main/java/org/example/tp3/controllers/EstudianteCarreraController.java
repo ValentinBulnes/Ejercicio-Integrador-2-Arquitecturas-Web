@@ -40,13 +40,13 @@ public class EstudianteCarreraController {
     }
 
     @GetMapping("/carreras-con-inscriptos")
-    public ResponseEntity<List<CarreraConInscriptosDTO>>  carrerasConInscriptos(){
+    public ResponseEntity<List<CarreraConInscriptosDTO>> carrerasConInscriptos(){
         List<CarreraConInscriptosDTO> carreras = estudianteCarreraService.obtenerCarrerasConInscriptos();
         return ResponseEntity.ok(carreras);
     }
 
     @GetMapping("/estudiantes")
-    public ResponseEntity<List<EstudianteDTO>> buscarEstudiantesPorCarreraYcidudad(
+    public ResponseEntity<List<EstudianteDTO>> buscarEstudiantesPorCarreraYCiudad(
             @RequestParam Long idCarrera,
             @RequestParam String ciudad
     ){
